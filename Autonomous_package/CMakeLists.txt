@@ -12,54 +12,79 @@ find_package(std_msgs REQUIRED)
 find_package(turtlesim REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(nav_msgs REQUIRED)
+find_package(nmea_msgs)
 find_package(sensor_msgs REQUIRED)
 find_package(tf2 REQUIRED) 
 find_package(tf2_geometry_msgs REQUIRED)
+# find_package(cv_bridge)
+# find_package(opencv2)
 
 include_directories(include)
 
-
-add_executable(subNode src/sub.cpp)
-ament_target_dependencies(subNode rclcpp std_msgs)
-
-add_executable(turNode src/time_pass.cpp)
-ament_target_dependencies(turNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
-
-add_executable(pubsubNode src/pubsub.cpp)
-ament_target_dependencies(pubsubNode rclcpp turtlesim geometry_msgs std_msgs)
+# add_executable(tsmNode src/ttlsim.cpp)
+# ament_target_dependencies(tsmNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
 
 add_executable(tb3Node src/first_node.cpp)
 ament_target_dependencies(tb3Node rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
 
-add_executable(ttlBotNode src/tb_vyom.cpp)
-ament_target_dependencies(ttlBotNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
-
 add_executable(ps4Node src/ps4.cpp)
-ament_target_dependencies(ps4Node rclcpp sensor_msgs std_msgs)
+ament_target_dependencies(ps4Node rclcpp sensor_msgs std_msgs geometry_msgs)
 
 add_executable(pstryNode src/ps4_try.cpp)
-ament_target_dependencies(pstryNode rclcpp sensor_msgs std_msgs)
+ament_target_dependencies(pstryNode rclcpp sensor_msgs std_msgs geometry_msgs)
 
-add_executable(tryNode src/tb_final.cpp)
-ament_target_dependencies(tryNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+add_executable(xbox_node src/xbox_node.cpp)
+ament_target_dependencies(xbox_node rclcpp sensor_msgs std_msgs geometry_msgs)
 
-add_executable(t2Node src/try2.cpp)
-ament_target_dependencies(t2Node rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+add_executable(autoNode src/autonomous.cpp)
+ament_target_dependencies(autoNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+
+# add_executable(t2Node src/try2.cpp)
+# ament_target_dependencies(t2Node rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
 
 add_executable(finalNode src/g2g_obs_avoidance_software.cpp)
-ament_target_dependencies(pubNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+ament_target_dependencies(finalNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+
+add_executable(gpsNode src/gps.cpp)
+ament_target_dependencies(gpsNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nmea_msgs geometry_msgs std_msgs)
+
+add_executable(dNode src/g2g_obs_avoidance_hardware.cpp)
+ament_target_dependencies(dNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs geometry_msgs std_msgs)
+
+add_executable(armNode src/arm.cpp)
+ament_target_dependencies(armNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nmea_msgs geometry_msgs std_msgs)
+
+ add_executable(ircNode src/autex.cpp)
+ ament_target_dependencies(ircNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+ add_executable(IrcNode src/autex_hardware.cpp)
+ ament_target_dependencies(IrcNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs geometry_msgs std_msgs)
+
+ add_executable(CamNode src/3d_cam.cpp)
+ ament_target_dependencies(CamNode rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+ add_executable(combine src/combined_drive_arm.cpp)
+ ament_target_dependencies(combine rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
+
+ add_executable(lidar src/lidar.cpp)
+ ament_target_dependencies(lidar rclcpp turtlesim tf2_geometry_msgs tf2 sensor_msgs nav_msgs geometry_msgs std_msgs)
 
 install(TARGETS
-  subNode
+  #subNode
+  xbox_node
   finalNode
-  turNode
-  pubsubNode
+  #tsmNode
   tb3Node
-  ttlBotNode
   ps4Node
   pstryNode
-  tryNode
-  t2Node
+  autoNode
+  #t2Node
+  gpsNode
+  dNode
+  armNode
+  ircNode
+  IrcNode
+  CamNode
+  combine
+  lidar
   DESTINATION lib/${PROJECT_NAME})
 
 
