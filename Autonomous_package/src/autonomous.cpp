@@ -53,11 +53,12 @@ private:
             max = (1 - obj_dis) * 2;
             scan.push_back(obj_dis);
 
-            if (i < 76 || i > 284)
+            if (i < 60 || i > 300)
             {
-                sum -= 6 * obj_dis * (i < 76 ? i : i - 359); // calculation of angle of obstacle
+                sum -= 6 * obj_dis * (i < 60 ? i : i - 359); // calculation of angle of obstacle
             }
             i++;
+            // cout << sum << endl;
         }
         scan.clear();
     }
@@ -93,7 +94,7 @@ private:
                 angle = angle - (abs(angle) / angle) * 6.28;
             }
 
-            angle_diff = (abs(angle) > 2.093) ? -0.45 * abs(angle) : 0.45 * angle;             // angle differnce of the current posn and goal posn
+            angle_diff = (abs(angle) > 2.45) ? -0.45 * abs(angle) : 0.45 * angle;             // angle differnce of the current posn and goal posn
             angle_diff = (angle_diff > 0.4) ? 0.4 * angle_diff / abs(angle_diff) : angle_diff; // limiting goal angular velocity
 
             vel = (g_dis / g_dist > 0.5) ? 0.5 : (g_dis / g_dist);
@@ -101,9 +102,9 @@ private:
             k_lin = 0.7 - exp(obs_lin); // calculator for linear velocity due to obstacle
             lin_vel = 4.5 * k_lin * vel;
 
-            goal_ang = 4 / (1 + exp(-5 * (max - 2))); // calculator for goal angular velocity
+            goal_ang = 4 / (1 + exp(-10 * (max - 2))); // calculator for goal angular velocity
             obs_ang = abs(7.389 - exp(goal_ang)) * sum;
-            k_ang = obs_ang + 0.275 * goal_ang * angle_diff;
+            k_ang = obs_ang + 0.25 * goal_ang * angle_diff;
 
             message.linear.x = (abs(lin_vel) > 0.65) ? 0.65 * abs(lin_vel) / lin_vel : lin_vel; // adjusting linear velocity
             message.angular.z = (abs(k_ang) > 0.5) ? 0.5 * abs(k_ang) / k_ang : k_ang;          // limiting the resultant angular velocity

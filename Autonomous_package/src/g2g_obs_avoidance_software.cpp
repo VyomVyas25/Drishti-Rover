@@ -1,9 +1,5 @@
-#include <chrono>
-#include <functional>
-#include <memory>
 #include <iostream>
 #include <vector>
-#include <string>
 #include <bits/stdc++.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
 #include <cmath>
@@ -52,12 +48,13 @@ private:
             obj_dis = 1 - x / 2;
             max = (1 - obj_dis) * 2;
             scan.push_back(obj_dis);
-
+            // cout << msg.ranges.size();
+            
             if (i < 76 || i > 284)
             {
                 sum -= 6 * obj_dis * (i < 76 ? i : i - 359); // calculation of angle of obstacle
             }
-            // cout << sum << endl;
+            cout << sum << endl;
             i++;
         }
         scan.clear();
@@ -111,7 +108,7 @@ private:
             obs_ang = abs(7.389 - exp(goal_ang)) * sum;
             k_ang = obs_ang + 0.225 * goal_ang * angle_diff;
 
-            message.linear.x = 4 * k_lin * vel; // adjusting linear velocity
+            message.linear.x = 4.5 * k_lin * vel; // adjusting linear velocity
             message.angular.z = k_ang;
             if (abs(message.angular.z) > 0.5)
             {
